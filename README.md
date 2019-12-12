@@ -27,7 +27,7 @@ mall
     
 ##### 2.2.2 vue环境搭建及vue-cli的使用
     
-    1.vue多页面应用文件引入：vue-node-mongo\index.html
+    1.vue多页面应用文件引入：D:\go-20191030\vue-node-mongo\demo1\index.html
         ·官网拷贝：... 、使用 CDN 方法
             以下推荐国外比较稳定的两个 CDN，国内还没发现哪一家比较好，目前还是建议下载到本地。
             Staticfile CDN（国内） : https://cdn.staticfile.org/vue/2.2.2/vue.min.js
