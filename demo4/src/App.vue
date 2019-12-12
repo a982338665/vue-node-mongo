@@ -2,6 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
+<!--    //渲染一级路由的-->
   </div>
 </template>
 

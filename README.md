@@ -106,6 +106,7 @@ mall
             /user/:username  /user/evan         {username:'evan'}
             /user/:a1/a2     /user/1/2          {a1:'1',a2:'2'}
         ·嵌套路由
+            
         ·编程式路由
         ·命名路由和命名视图
     5.
