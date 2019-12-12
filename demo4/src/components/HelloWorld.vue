@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <Counter num = 10></Counter>
+    <Counter v-bind:num="num"></Counter>
+    <P>parent:{{num}}</P>
   </div>
 
 </template>
@@ -14,7 +15,8 @@
         name: 'HelloWorld',
         data() {
             return {
-                msg: 'Welcome to Your Vue.js App'
+                msg: 'Welcome to Your Vue.js App',
+                num:10
             }
         },
         components: {
