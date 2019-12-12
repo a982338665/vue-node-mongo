@@ -48,5 +48,8 @@ mall
             ? Set up unit tests No                 单元测试 
             ? Setup e2e tests with Nightwatch? No
 
-
+##### 2.2.3 vue配置介绍：
+    
+    1.
+    2.
 

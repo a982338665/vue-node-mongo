@@ -23,9 +23,9 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json'],//加载时可省略后缀
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue$': 'vue/dist/vue.esm.js',//别名
       '@': resolve('src'),
     }
   },
@@ -33,7 +33,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        loader: 'vue-loader',//。vue文件解析器
         options: vueLoaderConfig
       },
       {
@@ -45,7 +45,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 10000,//10kb以下的文件以base64文本展示
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
@@ -61,7 +61,7 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 10000,//字体
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
