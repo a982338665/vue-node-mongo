@@ -105,8 +105,12 @@ mall
             模式              匹配路径            $route.params
             /user/:username  /user/evan         {username:'evan'}
             /user/:a1/a2     /user/1/2          {a1:'1',a2:'2'}
-        ·嵌套路由
-            
-        ·编程式路由
+        ·嵌套路由: html里面的路由
+        ·编程式路由：通过js实现页面跳转
+            $router.push('name')
+            $router.push({path:'name'})
+            $router.push({path:'name?a=13'})
+            $router.push({path:'name',query:{a:123}})
+            $router.go(1) 和go(-1)  
         ·命名路由和命名视图
     5.
