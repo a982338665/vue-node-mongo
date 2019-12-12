@@ -17,12 +17,13 @@
         },
         methods:{
             increment(){
-                this.num++;
-                // this.$emit("incre");
+                // this.num++;
+                //通过emit来触发父组件的自定义方法：对应其自定义名称
+                this.$emit("incr");
             },
             decrement(){
-                this.num--;
-                // this.$emit("decre");
+                // this.num--;
+                this.$emit("decr");
             }
         }
     }

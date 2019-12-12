@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <Counter v-bind:num="num"></Counter>
+    <Counter v-bind:num="num" v-on:incr="increment" v-on:decr="decrement"></Counter>
     <P>parent:{{num}}</P>
   </div>
 
@@ -21,6 +21,14 @@
         },
         components: {
             Counter
+        },
+        methods:{
+            increment(){
+                this.num++;
+            },
+            decrement(){
+                this.num--;
+            }
         }
     }
 </script>
