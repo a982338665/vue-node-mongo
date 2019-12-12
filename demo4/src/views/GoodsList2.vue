@@ -9,7 +9,9 @@
     <div>
       <router-view></router-view>
     </div>
-    <router-link to="/cart">跳转到购物车</router-link><br>
+    <router-link to="/cart">通过路由中的【path】跳转到购物车</router-link><br>
+    <router-link v-bind:to="{name:'cart'}">通过路由中的【name】跳转到购物车</router-link><br>
+<!--    <router-link v-bind:to="{name:'cart',params:{id:123}}">通过路由中的【name】跳转到购物车，动态路径跳转</router-link><br>-->
     <button @click="jump">button - 跳转到购物车页面 </button>
   </div>
 </template>

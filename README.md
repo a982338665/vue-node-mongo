@@ -113,4 +113,6 @@ mall
             $router.push({path:'name',query:{a:123}})
             $router.go(1) 和go(-1)  
         ·命名路由和命名视图
+            ·给路由定义不同的名字，根据名字进行匹配
+            ·给不同的route-view定义名字，通过名字进行对应组件的渲染
     5.
