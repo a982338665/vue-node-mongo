@@ -92,3 +92,20 @@ mall
         ·全局和局部组件
         ·父子组件通信 -数据传递 prop emit 只允许父组件流向子组件，通过emit可以变相将子组件数据流向父组件
         ·slot
+
+#### 2.3 vue路由：
+
+##### 2.3.1 路由基础
+
+    1.vue-router用来构建SPA
+    2.<router-link></router-link>或者this.$router.push({path:''}) 跳转实为a标签
+    3.<router-view></router-view>   组件渲染 和2配合使用
+    4.路由介绍：
+        ·动态路由匹配
+            模式              匹配路径            $route.params
+            /user/:username  /user/evan         {username:'evan'}
+            /user/:a1/a2     /user/1/2          {a1:'1',a2:'2'}
+        ·嵌套路由
+        ·编程式路由
+        ·命名路由和命名视图
+    5.
