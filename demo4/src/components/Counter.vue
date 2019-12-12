@@ -9,7 +9,7 @@
 </style>
 <script>
     export default{
-        // props:["num"],
+        props:["num"],
         data(){
             return{
                 num:0

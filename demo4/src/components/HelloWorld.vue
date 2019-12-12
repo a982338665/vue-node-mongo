@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <Counter></Counter>
+    <Counter num = 10></Counter>
   </div>
 
 </template>
