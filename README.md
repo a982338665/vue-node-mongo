@@ -38,6 +38,15 @@ mall
     2.vue-cli构建SPA应用：-- 安装脚手架
         1.安装：npm install -g vue-cli
         2.初始化项目-简单模式的webpack项目：vue init webpack-simple demo3 [vue-node-mongo下执行] D:\go-20191030\vue-node-mongo\demo3
-        3.初始化项目-完整模式的webpack项目：vue init webpack demo
+        3.初始化项目-完整模式的webpack项目：vue init webpack demo4        [vue-node-mongo下执行] D:\go-20191030\vue-node-mongo\demo4
+            ? Project name demo4
+            ? Project description miaoshu
+            ? Author li
+            ? Vue build standalone
+            ? Install vue-router? Yes              项目路由
+            ? Use ESLint to lint your code? No     代码检查 
+            ? Set up unit tests No                 单元测试 
+            ? Setup e2e tests with Nightwatch? No
+
 
 
