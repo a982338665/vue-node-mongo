@@ -33,7 +33,8 @@ mall
             Staticfile CDN（国内） : https://cdn.staticfile.org/vue/2.2.2/vue.min.js
             unpkg：https://unpkg.com/vue/dist/vue.js, 会保持和 npm 发布的最新的版本一致。
             cdnjs : https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js
-        ·npm安装
+        ·npm安装：
+            cnpm i vue --save   安装vue并且，添加到package.json里
     2.vue-cli构建SPA应用：
         1.安装：npm install -g vue-cli
         2.初始化项目-简单模式的webpack项目：vue init webpack-simple demo
