@@ -48,8 +48,47 @@ mall
             ? Set up unit tests No                 单元测试 
             ? Setup e2e tests with Nightwatch? No
 
-##### 2.2.3 vue配置介绍：
+##### 2.2.3 vue配置介绍：主要关注
     
-    1.
-    2.
-
+    1.D:\go-20191030\vue-node-mongo\demo4\config\index.js
+    2.D:\go-20191030\vue-node-mongo\demo4\build\webpack.base.conf.js
+    
+##### 2.2.4 vue基础语法
+    
+    1.模板语法：
+        ·Mustache语法：{{msg}}
+        ·Html赋值：v-html=""
+        ·绑定属性：v-bind:id=""
+        ·文本赋值：v-text=""
+        ·使用表达式：{{ok?'yes':'no'}}
+        ·if：v-if=""
+        ·过滤器：{{message|capitalize}} 和v-bind:id = 'rawId | formatId'
+    2.Class和Style绑定:
+        ·对象语法：v-bind:class="{active:isActive}" isActive是data中的值，通过此来判断属性是否该显示
+        ·数组语法：
+        ·style绑定：v-bind:style="{color:colorVal}" colorVal是data中的值，通过此来判断属性是否该显示
+    3.条件渲染：
+        ·v-if
+        ·v-else
+        ·v-else-if
+        ·v-show     判断div是否显示或隐藏
+        ·v-cloak    
+    4.事件处理器：
+        ·v-on:click="greet" 或者 @click ="greet"
+        ·v-on:click.stop            阻止冒泡
+        ·v-on:click.stop.prevent    阻止默认事件，例如a标签，点击会跳转，该属性会阻止该事件
+        ·v-on:click.self            给div事件绑定
+        ·v-on:click.once            给事件绑定一次，仅生效一次
+        ·v-on:keyup.enter           键盘事件
+            tab
+            delete
+            esc
+            space
+            up
+            down
+            left
+            right
+    5.vue组件：
+        ·全局和局部组件
+        ·父子组件通信 -数据传递 prop emit 只允许父组件流向子组件，通过emit可以变相将子组件数据流向父组件
+        ·slot
