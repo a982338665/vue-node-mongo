@@ -189,5 +189,5 @@ mall
         })
     3.CommonJS规范 - module.exports nodejs支持，浏览器端不支持
         exports.sum = (x,y) => x + y;
-    4.ES6特性 export/import
+    4.ES6特性新增 export/import
 
