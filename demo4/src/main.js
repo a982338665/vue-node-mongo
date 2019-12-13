@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+// import {sum,substract} from './util/util'
+// console.error(`sum:${sum(1,2)}`)
+// console.error(`sum:${substract(1,2)}`)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

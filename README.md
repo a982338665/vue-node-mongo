@@ -167,7 +167,7 @@ mall
     4.Rest参数和函数的扩展
     5.箭头函数
     6.Promise函数：避免回调地狱
-    7.模块化开发
+    7.模块化开发 export import:import可以实现异步加载 --》 在方法内引用import
     
- 
+##### 2.5.3 AMD,CMD,Commonjs和ES6的对比
 
