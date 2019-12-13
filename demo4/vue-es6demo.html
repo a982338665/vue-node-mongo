@@ -70,24 +70,72 @@
     //     return item + 1;
     // });
     //简写
-    let numbers = arr.map(item => item+1)
+    let numbers = arr.map(item => item + 1)
     console.error(JSON.stringify(numbers))
 
     //字符串，对象，数组,函数解构**********************************************************************************
     //数组解构
-    let [q,w,e] = [1,2,3]
+    let [q, w, e] = [1, 2, 3]
     console.error(`q:${q},w:${w},E:${e}`)//q:1,w:2,E:3
     //字符串解构
-    let [x,y,z] = 'qww222'
+    let [x, y, z] = 'qww222'
     console.error(`x:${x},y:${y},z:${z}`)//x:q,y:w,z:w
     //对象解构
-    let {m,n} = {m:10,n:20}
+    let {m, n} = {m: 10, n: 20}
     console.error(`m:${m},n:${n}`)
+
     //函数解构
-    function num([x,y]) {
-        return x+y;
+    function num([x, y]) {
+        return x + y;
     }
-    console.error(num([1,'2']))
+
+    console.error(num([1, '2']))
+
+    //Rest参数和函数的扩展**********************************************************************************
+    function summ1(x, y, z) {
+        let total = 0;
+        if (x) total += x;
+        if (x) total += y;
+        if (x) total += z;
+        console.error(`total:${total}`)
+    }
+
+    //...m即为rest参数，可变参数列表
+    function summ2(...m) {
+        let total = 0;
+        for (let v of m) {
+            total += v;
+        }
+        console.error(`total:${total}`)
+    }
+
+    //ES6中
+    let summ3 = (...m) => {
+        let total = 0;
+        for (let v of m) {
+            total += v;
+        }
+        console.error(`total:${total}`)
+    }
+    summ1(1, 2, 3)
+    summ2(1, 2, 3, 3, 33, 3)
+    summ3(1, 2, 3, 3, 3);
+    //函数的扩展 ...和数组结合
+    let [cc, vv] = [12, 22];
+    console.error(...[12, 13]);//会将12,13拆开打印
+    //数组合并
+    let arr1 = [123, 12];
+    let arr2 = [1, 2]
+    let numbers1 = arr1.concat(arr2);
+    console.error(numbers1)
+    console.error([...arr1, ...arr2])
+    //函数的扩展:数组解构
+    let [xf, ...oo] = [4, 5, 5, 5, 56, 6, 7]
+    console.error(typeof oo)
+    console.error(oo)
+    //函数的扩展:字符串拆解
+    let xy = [...'lis']//['l','i','s']
+    console.error(xy)
 </script>
 </body>
 </html>
