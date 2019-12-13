@@ -203,5 +203,13 @@ mall
         2.cd simple-mall
         3.npm install
         4.npm run dev
-        
+    3.改造：
+        1.src/assets中存放的静态文件：主要用于在组件中引用的内容，会在打包时，打进去
+        2.static文件夹中的静态文件不会被打包进去，放一些比较大的图片之类的
+        -----
+        3.将html中body的内容粘贴到views文件夹下的vue文件中
+        4.将引用的css粘贴到src/assets/css中,将img内容粘贴到static文件夹中
+        5.在GoodsList.vue文件中引用css，并将图片引用路径修改为 static/...
+        6.修改index.js,使用组件
+        7.
         

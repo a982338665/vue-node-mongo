@@ -13,3 +13,13 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+//使用此种方式也可以正常挂载
+// new Vue({
+//   router,
+//   // components: { App },
+//   // template: '<App/>'
+//   render:function (h) {
+//     return h(App)
+//   }
+// }).$mount('#app')
