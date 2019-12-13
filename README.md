@@ -93,9 +93,7 @@ mall
         ·父子组件通信 -数据传递 prop emit 只允许父组件流向子组件，通过emit可以变相将子组件数据流向父组件
         ·slot
 
-#### 2.3 vue路由：
-
-##### 2.3.1 路由基础
+#### 2.3 vue路由：vue-router
 
     1.vue-router用来构建SPA
     2.<router-link></router-link>或者this.$router.push({path:''}) 跳转实为a标签
@@ -113,6 +111,36 @@ mall
             $router.push({path:'name',query:{a:123}})
             $router.go(1) 和go(-1)  
         ·命名路由和命名视图
-            ·给路由定义不同的名字，根据名字进行匹配
+            ·给路由定义不同的名字，根据名字进行匹配    
             ·给不同的route-view定义名字，通过名字进行对应组件的渲染
-    5.
+ 
+#### 2.4 vue-resources和Axios：
+
+    1.使用：
+        cdn
+        npm安装
+    2.vue-resource的请求api是按照rest风格设计的：
+        get head post 等
+    3.基础介绍：
+        url             string              路径
+        method          string              请求方式
+        body            obj,formdatastring  请求体
+        params          obj                 url参数
+        headers         obj                 请求头
+        timeout         number              超时时间
+        before          function(request)   请求发送前的处理函数，类似于jquery的beforeSend函数
+        progress        function(event)     ProgressEvent的回调函数
+        credientials    bool                表示跨域请求时是否需要使用凭证
+        emulateHttp     bool                f发送put，pathch，delete请求时以http post请求方式方法，并设置请求头的x-http-method-override
+    4.全局拦截器interceptors
+        Vue.http.interceptors.push((request,next)=>{
+            //请求发送前的处理逻辑
+            next((response)=>{
+                //请求发送后的处理逻辑
+                //根据请求状态，response参数会返回给successCallback或errorCallback
+                return response;
+            });
+        })
+    5.使用：demo4
+        npm i vue-resource --save [--save添加至生产依赖中]
+        

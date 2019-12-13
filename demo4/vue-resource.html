@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>demo4</title>
+  <!--  引用vue:必须先引用vue，再引用vue-resource-->
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <!--  引用vue-resoource-->
+  <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+  <!--  样式引用bootstrap-->
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="app" class="container">
+  <h1>vue-resource插件</h1>
+  <a href="javascript:;" class="btn btn-primary" v-on:click="get">GET</a>
+  <a class="btn btn-primary" @click="post">POST</a>
+  <a class="btn btn-primary" @click="jsonp">JSONP</a><br>
+  <a class="btn btn-primary" @click="http">HTTP</a><br>
+  <span>
+    {{msg}}
+  </span>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: ''
+        },
+        //定义全局拦截器:拦截的是http请求，而非方法
+        mounted: function () {
+          Vue.http.interceptors.push(function (req,next) {
+              console.error('req init .....................');
+              next(function (res) {
+                  console.error('res init .................');
+                  return res;
+              });
+          });
+        },
+        //可以指定访问根目录
+        http:{
+          // root:'http://localhost:63342/vue-node-mongo/'
+        },
+        methods: {
+            get: function () {
+                console.error('--------get-----------')
+                //url,options
+                //此处也可以使用Vue.http.get发送请求
+                this.$http.get('package.json', {
+                    params: {
+                        userId: 101
+                    },
+                    headers: {
+                        token: "adsfasdfsadfa"
+                    },
+                }).then(res => {
+                    //res.data和res.body为返回数据
+                    this.msg = res.data;
+                }, error => {
+                    this.msg = error;
+                })
+            },
+            post: function () {
+                console.error('--------post-----------');
+                //url,body,options
+                this.$http.post('package.json', {
+                    userId: 102
+                }, {
+                    headers: {
+                        access_token: '12asdasdsad'
+                    }
+                }).then(res => {
+                    this.msg = res.data;
+                }, error => {
+                    this.msg = error;
+                })
+
+            },
+            jsonp: function () {
+                console.error('--------jsonp-----------')
+                // this.$http.jsonp('uri',)
+            },
+            http: function () {
+                console.error('--------http-----------')
+                this.$http({
+                    url:'package.json',
+                    // method:'GET',
+                    params: {
+                        userId: 101
+                    },
+                    headers: {
+                        token: "adsfasdfsadfa"
+                    },
+                    timeout:5,
+                    before:function () {
+                        console.error('before init .....');
+                    }
+                }).then(res => {
+                    this.msg = res.data;
+                }, error => {
+                    this.msg = error;
+                })
+            },
+        }
+    })
+</script>
+</body>
+</html>
