@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ES6的DEMO演示</title>
+  <style>
+    .log {
+      background-color: black;
+      color: #42b983;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+<h2>ES6的DEMO演示</h2>
+<div id="log" class="log"></div>
+<script>
+
+    //let and const**********************************************************************************
+    //var修饰的变量会自动进行提升，即会将申明 var a;提升至顶行
+    //所以下面的打印，a的值为undefined，因为由于变量提升的原因，会在第一行进行申明，但是赋值却在下一行
+    //所以此时，a申明了，未赋值，所以值为undefined
+    // console.error(a)
+    // var a = 'li'
+    //let块作用域，不会自动提升，所以输出一个未定义的值就会报错,阻止代码向下执行
+    //Uncaught ReferenceError: Cannot access 'b' before initialization
+    // console.error(b)
+    // let b = 'li2'
+    //const定义常量，值不能被修改，指的是引用指向
+
+    //模板语言``**********************************************************************************
+    let str = `
+    console.error(a)
+    var a = 'li'
+    //let块作用域，不会自动提升，所以输出一个未定义的值就会报错
+    //Uncaught ReferenceError: Cannot access 'b' before initialization
+    console.error(b)
+    let b = 'li2'`
+    printLog(str)
+    let userName = 'jack'
+    //模板语言使用使用局部变量
+    printLog(`I am ${userName}`)
+
+    function printLog(str) {
+        document.getElementById('log').innerText = str
+    }
+
+    //函数添加局部变量默认值**********************************************************************************
+    function add(flag) {
+        return flag ? true : false;
+    }
+
+    //flag没传的时候默认为true
+    function addDefault(flag = true) {
+        return flag ? true : false;
+    }
+
+    function sum(sum1, sum2 = 0) {
+        return sum1 + sum2
+    }
+
+    console.error(add())//false
+    console.error(addDefault())//true
+    console.error(sum(1))//1
+    //箭头函数**********************************************************************************
+    let arr = [3, 5, 4]
+    //将数组中的每个值都加1后返回，生成一个新的数组
+    // let numbers = arr.map(item => {
+    //     return item + 1;
+    // });
+    //简写
+    let numbers = arr.map(item => item+1)
+    console.error(JSON.stringify(numbers))
+
+    //字符串，对象，数组,函数解构**********************************************************************************
+    //数组解构
+    let [q,w,e] = [1,2,3]
+    console.error(`q:${q},w:${w},E:${e}`)//q:1,w:2,E:3
+    //字符串解构
+    let [x,y,z] = 'qww222'
+    console.error(`x:${x},y:${y},z:${z}`)//x:q,y:w,z:w
+    //对象解构
+    let {m,n} = {m:10,n:20}
+    console.error(`m:${m},n:${n}`)
+    //函数解构
+    function num([x,y]) {
+        return x+y;
+    }
+    console.error(num([1,'2']))
+</script>
+</body>
+</html>
