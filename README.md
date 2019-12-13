@@ -191,3 +191,17 @@ mall
         exports.sum = (x,y) => x + y;
     4.ES6特性新增 export/import
 
+#### 2.6 商品列表模块实现：
+
+    1.基础组件拆分：
+        Header组件
+        Footer组件
+        面包屑组件
+    2.项目初始化：
+        1.vue init webpack simple-mall 
+          author: foluojack
+        2.cd simple-mall
+        3.npm install
+        4.npm run dev
+        
+        
