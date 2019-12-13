@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>demo4</title>
+  <!--  引用vue:必须先引用vue，再引用vue-resource-->
+  <script src="node_modules/vue/dist/vue.js"></script>
+  <!--  引用vue-resoource-->
+  <script src="node_modules/axios/dist/axios.js"></script>
+  <!--  样式引用bootstrap-->
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="app" class="container">
+  <h1>axios插件</h1>
+  <a href="javascript:;" class="btn btn-primary" v-on:click="get">GET</a>
+  <a class="btn btn-primary" @click="post">POST</a>
+  <a class="btn btn-primary" @click="http">HTTP</a>
+  <span>
+    {{msg}}
+  </span>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: ''
+        },
+        //定义全局拦截器:拦截的是http请求，而非方法
+        mounted: function () {
+            axios.interceptors.request.use(function (config) {
+                console.error('req init .....................');
+                return config;
+            })
+            axios.interceptors.response.use(function (response) {
+                console.error('res init .....................');
+                return response;
+            })
+        },
+
+        methods: {
+            get: function () {
+                console.error('--------get-----------')
+                axios.get('package.json', {
+                    params: {
+                        userId: 101
+                    },
+                    headers: {
+                        token: "adsfasdfsadfa"
+                    },
+                    timeout: 5,
+                }).then(res => {
+                    this.msg = res.data
+                }).catch(err => {
+                    console.error('error init......')
+                })
+            },
+            post: function () {
+                console.error('--------post-----------');
+                //url,body,options
+                axios.post('package.json', {
+                    userId: 102
+                }, {
+                    headers: {
+                        access_token: '12asdasdsad'
+                    }
+                }).then(res => {
+                    this.msg = res.data;
+                }).catch(err => {
+                    console.error('error init......')
+                })
+            },
+
+            http: function () {
+                console.error('--------http-----------')
+                axios({
+                    url: 'package.json',
+                    method: 'POST',
+                    //get时在uri使用params
+                    //post使用data
+                    data: {
+                        userId: '101'
+                    },
+                    params: {
+                        id: 19
+                    },
+                    headers: {
+                        access_token: '12asdasdsad'
+                    }
+                }).then(res => {
+                    this.msg = res.data;
+                }).catch(err => {
+                    console.error('error init......')
+                })
+            },
+        }
+    })
+</script>
+</body>
+</html>

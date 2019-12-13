@@ -142,5 +142,9 @@ mall
             });
         })
     5.使用：demo4
-        npm i vue-resource --save [--save添加至生产依赖中]
-        
+        npm i vue-resource --save [--save添加至生产依赖中] D:\go-20191030\vue-node-mongo\demo4\vue-resource.html
+    6.Axios：异步型插件 D:\go-20191030\vue-node-mongo\demo4\vue-axios.html
+        1.引入：
+            cdn引入：
+            npm i axios --save
+        2.使用：
