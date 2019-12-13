@@ -170,4 +170,24 @@ mall
     7.模块化开发 export import:import可以实现异步加载 --》 在方法内引用import
     
 ##### 2.5.3 AMD,CMD,Commonjs和ES6的对比
+    
+    1.AMD - ajax model define异步模块定义：是RequreJS在推广过程中对模块定义的规范化产出，依赖前置，需要时引入，异步加载
+        //第一个参数引入包，第二个参数，通过回调获取包
+        define(['package/lib'],function(lib){
+            function foo(){
+                lib.log('hello world')
+            }
+            return {
+                foo:foo
+            }
+        })
+    2.CMD -同步模块定义：是SeaJS在推广过程中对模块定义的规范化产出,哪个地方用哪个地方引入
+        //所有模块都通过define来定义
+        define(function(require,exports,module){
+            //通过require引入依赖
+            var $ =require('jquery')
+        })
+    3.CommonJS规范 - module.exports nodejs支持，浏览器端不支持
+        exports.sum = (x,y) => x + y;
+    4.ES6特性 export/import
 
