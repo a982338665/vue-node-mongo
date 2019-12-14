@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 let {productSchema} = require('../models/goods');
 
 //1.连接数据库
- mongoose.connect("mongodb://swen:swen123456@122.51.144.140:27017/app?authSource=admin", {
+mongoose.connect("mongodb://swen:swen123456@122.51.144.140:27017/app?authSource=admin", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
@@ -31,7 +31,13 @@ mongoose.connection.on('disconnected', () => {
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    productSchema.find({}, (err, data) => {
+    let page = parseInt(req.query.page);
+    let pageSize = parseInt(req.query.pageSize);
+    let sort = req.query.sort;
+    let params = {};
+    let goodsModel = productSchema.find(params).skip((page - 1) * pageSize).limit(pageSize);
+    goodsModel.sort({'salePrice': sort});
+    goodsModel.exec((err, data) => {
         if (err) {
             res.json({
                 status: '1',
