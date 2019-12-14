@@ -232,5 +232,12 @@ mall
         cd simple-mall-api
         express -e （将当前目录作为express初始化项目）
         npm install
-#### 2.8   
-
+        
+#### 2.8 mongodb介绍：
+    
+    1.安装，用户创建，基本语法
+    2.数据表设计：
+    3.启动mongo
+    4.初始化数据：
+        D:\go-20191030\vue-node-mongo\simple-mall\resource\dumall-goods
+        D:\go-20191030\vue-node-mongo\simple-mall\resource\dumall-users
