@@ -257,3 +257,6 @@ mall
         2.创建model
         3.创建路由
         4.基于mongoose，实现查询功能
+    3.前端页面分页排序：
+        1.分页插件：vue-infinite-scroll,具体使用api可以去npm查询
+            cnpm i vue-infinite-scroll --save

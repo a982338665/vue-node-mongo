@@ -12,7 +12,7 @@
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
           <a href="javascript:void(0)" class="default cur">Default</a>
-          <a href="javascript:void(0)" class="price">Price
+          <a href="javascript:void(0)" class="price" @click="sortGoods">Price
             <svg class="icon icon-arrow-short">
               <use xlink:href="#icon-arrow-short"></use>
             </svg>
@@ -38,9 +38,9 @@
 
           <!-- search result accessories list -->
           <div class="accessory-list-wrap">
-            <div class="accessory-list col-4">
+            <div class="accessory-list col-4 list-warp">
               <ul>
-                <li v-for="(item,index) in goodsList">
+                <li v-for="(item,index) in goodsList" class="item">
                   <div class="pic">
                     <!--                    <a href="#"><img v-bind:src="'/static/'+item.prodcutImg" alt=""></a>-->
                     <!--        图片懒加载：图片未加载出来时，显示黑色，加载后显示图片  \static\loading-svg\loading-bars.svg 中设置         -->
@@ -55,6 +55,9 @@
                   </div>
                 </li>
               </ul>
+              <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
+                加载中...
+              </div>
             </div>
           </div>
         </div>
@@ -82,6 +85,7 @@
                 msg: 'hello vue',
                 goodsList: [],
                 priceChecked: 'all',
+                busy: false,
                 priceFilter: [
                     {
                         startPrice: '0.00',
@@ -98,7 +102,10 @@
                 ],
 
                 filterBy: false,//弹出样式
-                overLayFlag: false//是否遮罩
+                overLayFlag: false,//是否遮罩
+                sortFlag: true,
+                page: 1,
+                pageSize: 8
             }
 
         },
@@ -112,17 +119,44 @@
             this.getGoodsList()
         },
         methods: {
-            getGoodsList() {
+            getGoodsList: function (flag) {
+                let params = {
+                    page: this.page,
+                    pageSize: this.pageSize,
+                    sort: this.sortFlag ? 1 : -1
+                }
                 axios.get('/goods', {
-                    timeout: 3000
+                    // timeout: 3000
+                    params
                 }).then(res => {
                     console.error('正式：。。。')
-                    this.goodsList = res.data.result.list
+                    let result = res.data;
+                    if (result.status == '0') {
+                        if (flag) {//表示是true的时候，需要累加
+                            this.goodsList = this.goodsList.concat(result.result.list)
+                            if (result.result.count == 0) {
+                                this.busy = true
+                            } else {
+                                this.busy = false
+                            }
+                        } else {
+                            this.goodsList = result.result.list
+                            this.busy = false
+                        }
+                    } else {
+                        this.goodsList = [];
+                    }
                 }).catch(err => {
                     // this.goodsList = this.getMockData().result;
-                    console.error('mock：。。。'+err)
+                    console.error('mock：。。。' + err)
                     // console.error(JSON.stringify(this.goodsList))
                 });
+            },
+            sortGoods() {
+                //取反
+                this.sortFlag = !this.sortFlag;
+                this.page = 1;
+                this.getGoodsList()
             },
             showFilterPop() {
                 this.filterBy = true
@@ -137,6 +171,15 @@
                 this.priceChecked = index
                 //关闭悬浮框
                 this.closePop();
+            },
+            loadMore() {
+                //busy=true时，表示滚动失效，保证每次滚动仅有一个请求被发送
+                this.busy = true;
+                setTimeout(() => {
+                    this.page++;
+                    //此处需要注意：此种方式，需要累加数据，即page==2时，页面上将会有1,2两页的数据
+                    this.getGoodsList(true)
+                }, 500);
             },
             getMockData() {
                 return {
@@ -201,4 +244,89 @@
 </script>
 
 <style>
+  .container {
+    padding: 0 10px;
+  }
+
+  .filter-nav {
+    height: 55px;
+    line-height: 55px;
+    background-color: white;
+    text-align: right;
+    padding-right: 20px;
+    margin: 60px 0 30px 0;
+  }
+
+  .def {
+    color: #ee7a23;
+  }
+
+  .filter-nav span {
+    margin-right: 10px;
+  }
+
+  .filter-nav a {
+    margin-left: 10px;
+  }
+
+  .icon-arrow-short {
+    width: 11px;
+    height: 11px;
+  }
+
+  .goods-container {
+    display: flex;
+  }
+
+  .price-wrap {
+    padding: 0 20px
+  }
+
+  .filter-price dt {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .filter-price dd {
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 20px;
+  }
+
+  .filter-price a{
+    transition: all .3s ease-out;
+  }
+
+  .cur{
+    border-left: 2px solid #ee7a2c;
+    color: #ee7a2c;
+    transition: all .3s ease-out;
+    padding-left: 15px;
+  }
+
+  .filter-price dd a:hover{
+    border-left: 2px solid #ee7a2c;
+    color: #ee7a2c;
+    transition: all .3s ease-out;
+    padding-left: 15px;
+  }
+
+  .list-warp{
+    flex: 1;
+  }
+  .list-warp ul:after{
+    clear: both;
+    content: '';
+    height: 0;
+    display: block;
+    visibility: hidden;
+  }
+
+  .list-warp .item{
+    width: 23.80952%;
+  }
 </style>
