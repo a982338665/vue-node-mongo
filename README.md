@@ -221,3 +221,16 @@ mall
         8.实现图片懒加载：
             1.cnpm i vue-lazyload --save
             2.主要用于，图片滚动时，未滚动到图片时，不进行图片加载，避免一时间大量加载图片耗费资源
+
+#### 2.7 nodejs：
+    
+    1.安装nodejs
+    2.创建httpserver
+    3.node加载静态资源
+    4.express框架：
+        cnpm i -g express-generator
+        cd simple-mall-api
+        express -e （将当前目录作为express初始化项目）
+        npm install
+#### 2.8   
+
