@@ -44,11 +44,11 @@
                   <div class="pic">
                     <!--                    <a href="#"><img v-bind:src="'/static/'+item.prodcutImg" alt=""></a>-->
                     <!--        图片懒加载：图片未加载出来时，显示黑色，加载后显示图片  \static\loading-svg\loading-bars.svg 中设置         -->
-                    <a href="#"><img v-lazy="'/static/'+item.prodcutImg" alt=""></a>
+                    <a href="#"><img v-lazy="'/static/'+item.productImage" alt=""></a>
                   </div>
                   <div class="main">
                     <div class="name">{{item.productName}}</div>
-                    <div class="price">{{item.prodcutPrice}}</div>
+                    <div class="price">{{item.salePrice}}</div>
                     <div class="btn-area">
                       <a href="javascript:;" class="btn btn--m">加入购物车</a>
                     </div>
@@ -75,7 +75,7 @@
     import NavBread from '../components/NavBread'
     import axios from 'axios'
 
-
+    axios.defaults.baseURL = 'http://localhost:3000';
     export default {
         data() {
             return {
@@ -114,11 +114,13 @@
         methods: {
             getGoodsList() {
                 axios.get('/goods', {
-                    timeout: 1
+                    timeout: 3000
                 }).then(res => {
-                    this.goodsList = res.data
+                    console.error('正式：。。。')
+                    this.goodsList = res.data.result.list
                 }).catch(err => {
-                    this.goodsList = this.getMockData().result;
+                    // this.goodsList = this.getMockData().result;
+                    console.error('mock：。。。'+err)
                     // console.error(JSON.stringify(this.goodsList))
                 });
             },

@@ -241,3 +241,19 @@ mall
     4.初始化数据：
         D:\go-20191030\vue-node-mongo\simple-mall\resource\dumall-goods
         D:\go-20191030\vue-node-mongo\simple-mall\resource\dumall-users
+
+#### 2.9 node开发商品列表接口
+    
+    1.node调试方式：
+        1.idea直接run
+        2.pm2：基于进程管理，不能跨电脑，也就是后台运行
+            cnpm i pm2 -g
+            pm2 start bin/www
+            pm2 stop bin/www
+            pm2 stop all 停止所有
+    2.实现商品列表查询接口：
+        1.安装mongoose：
+            cnpm i mongoose --save
+        2.创建model
+        3.创建路由
+        4.基于mongoose，实现查询功能

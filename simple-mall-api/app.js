@@ -6,8 +6,25 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var goodsRouter = require('./routes/goods');
 
 var app = express();
+
+app.use((req, res, next) => {
+    // console.log('执行中间件...-> 必须调用尾函数next才能进入下一个中间件：');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    if (req.method == 'OPTIONS') {
+        // res.send(200); /让options请求快速返回/
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+    console.log('res:' + res.statusCode);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,11 +38,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/goods', goodsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
