@@ -204,7 +204,7 @@ mall
         3.npm install
         4.npm run dev
         5.npm i axios --save
-
+        6.cnpm i vue-lazyload --save
     3.改造：
         1.src/assets中存放的静态文件：主要用于在组件中引用的内容，会在打包时，打进去
         2.static文件夹中的静态文件不会被打包进去，放一些比较大的图片之类的
@@ -218,4 +218,6 @@ mall
             ·模拟假数据mock数据，加载商品列表信息
             1.新建文件夹mock，写入假数据
             2.使用axios模拟请求
-        
+        8.实现图片懒加载：
+            1.cnpm i vue-lazyload --save
+            2.主要用于，图片滚动时，未滚动到图片时，不进行图片加载，避免一时间大量加载图片耗费资源

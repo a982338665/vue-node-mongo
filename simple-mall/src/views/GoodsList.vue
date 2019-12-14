@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
   <div>
     <!--  此处必须有外部元素包裹它-->
     <nav-header></nav-header>
@@ -17,25 +17,21 @@
               <use xlink:href="#icon-arrow-short"></use>
             </svg>
           </a>
-          <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+          <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
         </div>
         <div class="accessory-result">
           <!-- filter -->
-          <div class="filter stopPop" id="filter">
+          <div class="filter stopPop" id="filter" v-bind:class="{'filterby-show':filterBy  }">
             <dl class="filter-price">
               <dt>Price:</dt>
-              <dd><a href="javascript:void(0)">All</a></dd>
-              <dd>
-                <a href="javascript:void(0)">0 - 100</a>
+              <!--     添加选中状态           -->
+              <dd><a href="javascript:void(0)" v-bind:class="{'cur':priceChecked=='all'}" @click="priceChecked='all'">All</a>
               </dd>
-              <dd>
-                <a href="javascript:void(0)">100 - 500</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">500 - 1000</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">1000 - 2000</a>
+              <!--    添加数据          -->
+              <dd v-for="(price,index) in priceFilter" @click="setPriceFilter(index)">
+                <!--     添加选中状态           -->
+                <a href="javascript:void(0)" v-bind:class="{'cur':priceChecked==index}">{{price.startPrice}} -
+                  {{price.endPrice}}</a>
               </dd>
             </dl>
           </div>
@@ -46,7 +42,9 @@
               <ul>
                 <li v-for="(item,index) in goodsList">
                   <div class="pic">
-                    <a href="#"><img v-bind:src="'/static/'+item.prodcutImg" alt=""></a>
+                    <!--                    <a href="#"><img v-bind:src="'/static/'+item.prodcutImg" alt=""></a>-->
+                    <!--        图片懒加载：图片未加载出来时，显示黑色，加载后显示图片  \static\loading-svg\loading-bars.svg 中设置         -->
+                    <a href="#"><img v-lazy="'/static/'+item.prodcutImg" alt=""></a>
                   </div>
                   <div class="main">
                     <div class="name">{{item.productName}}</div>
@@ -62,6 +60,7 @@
         </div>
       </div>
     </div>
+    <div class='md-overlay ' v-show="overLayFlag" @click="closePop"></div>
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -81,7 +80,25 @@
         data() {
             return {
                 msg: 'hello vue',
-                goodsList: []
+                goodsList: [],
+                priceChecked: 'all',
+                priceFilter: [
+                    {
+                        startPrice: '0.00',
+                        endPrice: '500.00'
+                    },
+                    {
+                        startPrice: '500.00',
+                        endPrice: '1000.00'
+                    },
+                    {
+                        startPrice: '1000.00',
+                        endPrice: '1500.00'
+                    },
+                ],
+
+                filterBy: false,//弹出样式
+                overLayFlag: false//是否遮罩
             }
 
         },
@@ -104,6 +121,20 @@
                     this.goodsList = this.getMockData().result;
                     // console.error(JSON.stringify(this.goodsList))
                 });
+            },
+            showFilterPop() {
+                this.filterBy = true
+                this.overLayFlag = true
+            },
+            closePop() {
+                this.filterBy = false
+                this.overLayFlag = false
+            },
+            setPriceFilter(index) {
+                //选择时间段后，改为选中状态
+                this.priceChecked = index
+                //关闭悬浮框
+                this.closePop();
             },
             getMockData() {
                 return {
