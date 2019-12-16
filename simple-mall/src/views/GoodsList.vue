@@ -51,7 +51,7 @@
                     <div class="name">{{item.productName}}</div>
                     <div class="price">{{item.salePrice}}</div>
                     <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                      <a href="javascript:;" class="btn btn--m" @click='addCart(item)'>加入购物车</a>
                     </div>
                   </div>
                 </li>
@@ -190,6 +190,20 @@
                     //此处需要注意：此种方式，需要累加数据，即page==2时，页面上将会有1,2两页的数据
                     this.getGoodsList(true)
                 }, 500);
+            },
+            addCart(item) {
+                let productId = item.productId
+                axios.post('/goods/addCart', {
+                    productId: productId
+                }).then(res => {
+                    if (res.data.status == 0) {
+                        alert('加入成功')
+                    } else {
+                        console.error(JSON.stringify(res))
+                        alert('加入失败:' + res.msg)
+
+                    }
+                })
             },
             getMockData() {
                 return {
