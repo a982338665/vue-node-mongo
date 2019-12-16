@@ -25,7 +25,8 @@
             <dl class="filter-price">
               <dt>Price:</dt>
               <!--     添加选中状态           -->
-              <dd><a href="javascript:void(0)" v-bind:class="{'cur':priceChecked=='all'}" @click="priceChecked='all'">All</a>
+              <dd><a href="javascript:void(0)" v-bind:class="{'cur':priceChecked=='all'}"
+                     @click="setPriceFilter('all')">All</a>
               </dd>
               <!--    添加数据          -->
               <dd v-for="(price,index) in priceFilter" @click="setPriceFilter(index)">
@@ -56,7 +57,8 @@
                 </li>
               </ul>
               <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
-                加载中...
+                <!--                加载中...-->
+                <img src="../../static/loading-svg/loading-spinning-bubbles.svg" v-show="loading">
               </div>
             </div>
           </div>
@@ -82,6 +84,7 @@
     export default {
         data() {
             return {
+                loading: false,
                 msg: 'hello vue',
                 goodsList: [],
                 priceChecked: 'all',
@@ -89,15 +92,15 @@
                 priceFilter: [
                     {
                         startPrice: '0.00',
+                        endPrice: '100.00'
+                    },
+                    {
+                        startPrice: '100.00',
                         endPrice: '500.00'
                     },
                     {
                         startPrice: '500.00',
                         endPrice: '1000.00'
-                    },
-                    {
-                        startPrice: '1000.00',
-                        endPrice: '1500.00'
                     },
                 ],
 
@@ -120,15 +123,19 @@
         },
         methods: {
             getGoodsList: function (flag) {
+                console.error(this.priceChecked)
                 let params = {
                     page: this.page,
                     pageSize: this.pageSize,
-                    sort: this.sortFlag ? 1 : -1
+                    sort: this.sortFlag ? 1 : -1,
+                    priceChecked: this.priceChecked
                 }
+                this.loading = true
                 axios.get('/goods', {
                     // timeout: 3000
                     params
                 }).then(res => {
+                    this.loading = false;
                     console.error('正式：。。。')
                     let result = res.data;
                     if (result.status == '0') {
@@ -139,6 +146,7 @@
                             } else {
                                 this.busy = false
                             }
+
                         } else {
                             this.goodsList = result.result.list
                             this.busy = false
@@ -169,6 +177,8 @@
             setPriceFilter(index) {
                 //选择时间段后，改为选中状态
                 this.priceChecked = index
+                this.page = 1
+                this.getGoodsList()
                 //关闭悬浮框
                 this.closePop();
             },
@@ -297,28 +307,29 @@
     margin-bottom: 20px;
   }
 
-  .filter-price a{
+  .filter-price a {
     transition: all .3s ease-out;
   }
 
-  .cur{
+  .cur {
     border-left: 2px solid #ee7a2c;
     color: #ee7a2c;
     transition: all .3s ease-out;
     padding-left: 15px;
   }
 
-  .filter-price dd a:hover{
+  .filter-price dd a:hover {
     border-left: 2px solid #ee7a2c;
     color: #ee7a2c;
     transition: all .3s ease-out;
     padding-left: 15px;
   }
 
-  .list-warp{
+  .list-warp {
     flex: 1;
   }
-  .list-warp ul:after{
+
+  .list-warp ul:after {
     clear: both;
     content: '';
     height: 0;
@@ -326,7 +337,7 @@
     visibility: hidden;
   }
 
-  .list-warp .item{
+  .list-warp .item {
     width: 23.80952%;
   }
 </style>

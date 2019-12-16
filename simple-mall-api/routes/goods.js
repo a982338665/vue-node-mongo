@@ -29,12 +29,45 @@ mongoose.connection.on('disconnected', () => {
 });
 
 
+function convertParams(priceChecked, params) {
+    let price1 = '', price2 = ''
+    if (priceChecked != 'all') {
+        switch (priceChecked) {
+            case '0':
+                price1 = 0;
+                price2 = 100;
+                break;
+            case '1':
+                price1 = 100;
+                price2 = 500;
+                break;
+            case '2':
+                price1 = 500;
+                price2 = 1000;
+                break;
+            case '3':
+                price1 = 1000;
+                price2 = 5000;
+                break;
+        }
+        params = {
+            salePrice: {
+                $gt: price1,
+                $lte: price2
+            }
+        }
+    }
+    return params;
+}
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     let page = parseInt(req.query.page);
     let pageSize = parseInt(req.query.pageSize);
     let sort = req.query.sort;
+    let priceChecked = req.query.priceChecked;
     let params = {};
+    params = convertParams(priceChecked, params);
     let goodsModel = productSchema.find(params).skip((page - 1) * pageSize).limit(pageSize);
     goodsModel.sort({'salePrice': sort});
     goodsModel.exec((err, data) => {
