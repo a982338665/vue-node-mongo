@@ -278,7 +278,7 @@
     background-color: white;
     text-align: right;
     padding-right: 20px;
-    margin: 60px 0 30px 0;
+    margin: 15px 0 15px 0;
   }
 
   .def {
