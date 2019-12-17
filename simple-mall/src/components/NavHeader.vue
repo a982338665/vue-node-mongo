@@ -19,7 +19,7 @@
       </div>
       <div class="navbar-right-container" style="float: right">
         <div class="navbar-menu-container">
-<!--          <a href="/" class="navbar-link">我的账户</a>-->
+          <!--          <a href="/" class="navbar-link">我的账户</a>-->
           <span class="navbar-link" v-text="nickName" v-if="nickName"></span>
           <!--   点击登录时，展示模态框       -->
           <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true;errorTip=false" v-if="!nickName">Login</a>
@@ -107,7 +107,16 @@
                 })
             },
             logOut() {
+                //退出：
+                axios.post('/users/logout').then(res => {
+                    let result = res.data;
+                    console.error(JSON.stringify(result))
+                    if (result.status == 0) {
+                        this.nickName = ''
+                    } else {
 
+                    }
+                })
             }
         }
     }
