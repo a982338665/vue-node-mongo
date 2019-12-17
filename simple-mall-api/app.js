@@ -46,6 +46,7 @@ app.use((req, res, next) => {
         res.sendStatus(200);
     } else {
         console.error(JSON.stringify(req.cookies))
+        console.error(JSON.stringify(req.path))
         if (req.cookies!=null && req.cookies && req.cookies.userId!=undefined) {
             next();
         } else {

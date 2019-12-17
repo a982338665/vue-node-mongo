@@ -87,7 +87,22 @@
                 nickName: ''
             };
         },
+        mounted() {
+            this.checkLogin()
+        },
         methods: {
+            checkLogin() {
+                axios.post('/users/checkLogin', '', {
+                    withCredentials: true
+                }).then(res => {
+                    let obj = res.data;
+                    console.error(JSON.stringify(obj))
+                    if (obj.status == 0) {
+                        //other
+                        this.nickName = obj.result.userName
+                    }
+                })
+            },
             login() {
                 axios.post('/users/login', {
                     userName: this.userName,
@@ -114,7 +129,7 @@
             },
             logOut() {
                 //退出：
-                axios.post('/users/logout','',{
+                axios.post('/users/logout', '', {
                     //CORS策略已阻止从源“http://localhost:3000/users/login”访问XMLHttpRequest:http://localhost:8080”：
                     // 对飞行前请求的响应未通过访问控制检查：当请求的凭据模式为“include”时，
                     // 响应中的“Access-control-Allow-origin”头的值不得为通配符“*”。

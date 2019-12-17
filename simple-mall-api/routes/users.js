@@ -22,6 +22,26 @@ router.post('/logout', function (req, res, next) {
     });
 });
 
+/**
+ * 登录校验
+ */
+router.post('/checkLogin', function (req, res, next) {
+    if (req.cookies.userId) {
+        res.json({
+            status: 0,
+            msg: '',
+            result: {userName: req.cookies.userName}
+        });
+    } else {
+        res.json({
+            status: 1,
+            msg: '未登录API',
+            result: ''
+        });
+    }
+
+});
+
 
 router.post('/login', function (req, res, next) {
     //查询参数
