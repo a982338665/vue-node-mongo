@@ -200,7 +200,7 @@
                         alert('加入成功')
                     } else {
                         console.error(JSON.stringify(res))
-                        alert('加入失败:' + res.msg)
+                        alert('加入失败:' + res.data.msg)
 
                     }
                 })

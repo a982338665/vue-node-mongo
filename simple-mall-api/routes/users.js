@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
  */
 router.post('/logout', function (req, res, next) {
   res.cookie('userId','',{
-    path:'/',
+    // path:'/',
     maxAge:-1//0或-1失效
   })
     res.json({
@@ -38,11 +38,11 @@ router.post('/login', function (req, res, next) {
         } else {
             if (doc) {
                 res.cookie("userId", doc.userId, {
-                    path: '/',
+                    // path: '/',
                     maxAge: 1000 * 60 * 60//一小时
                 });
                 res.cookie("userName", doc.userName, {
-                    path: '/',
+                    // path: '/',
                     maxAge: 1000 * 60 * 60
                 });
                 //可以将用户信息存在session中
