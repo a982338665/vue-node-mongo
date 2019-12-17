@@ -12,21 +12,21 @@ mongoose.connect("mongodb://swen:swen123456@122.51.144.140:27017/app?authSource=
     if (err) {
         throw err;
     } else {
-        console.log("mongoServer is running!");
+        console.log(new Date().toLocaleString()+" mongoServer is running!");
     }
 });
 
 //监听连接
 mongoose.connection.on('connected', () => {
-    console.error('mongo connected success!')
+    console.error(new Date().toLocaleString()+' mongo connected success!')
 });
 //监听错误
 mongoose.connection.on('error', () => {
-    console.error('mongo connected fail!')
+    console.error(new Date().toLocaleString()+' mongo connected fail!')
 });
 //监听连接
 mongoose.connection.on('disconnected', () => {
-    console.error('mongo connected disconnected!')
+    console.error(new Date().toLocaleString()+' mongo connected disconnected!')
 });
 
 
