@@ -11,6 +11,26 @@ const url = require("url");
 
 var app = express();
 
+function vaildUri(uri) {
+    let uris = [
+        '/users/login',
+        '/users/logout',
+        '/goods'
+    ]
+    return uris.includes(uri)
+}
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.use((req, res, next) => {
     console.error(req.headers.origin)
     // console.log('执行中间件...-> 必须调用尾函数next才能进入下一个中间件：');
@@ -25,6 +45,7 @@ app.use((req, res, next) => {
         // res.send(200); /让options请求快速返回/
         res.sendStatus(200);
     } else {
+        console.error(JSON.stringify(req.cookies))
         if (req.cookies!=null && req.cookies && req.cookies.userId!=undefined) {
             next();
         } else {
@@ -45,25 +66,6 @@ app.use((req, res, next) => {
     console.log('res:' + res.statusCode);
 });
 
-
-function vaildUri(uri) {
-    let uris = [
-        '/users/login',
-        '/users/logout',
-        '/goods'
-    ]
-    return uris.includes(uri)
-}
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

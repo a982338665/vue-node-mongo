@@ -195,6 +195,8 @@
                 let productId = item.productId
                 axios.post('/goods/addCart', {
                     productId: productId
+                },{
+                    withCredentials: true
                 }).then(res => {
                     if (res.data.status == 0) {
                         alert('加入成功')

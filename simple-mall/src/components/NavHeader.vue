@@ -114,7 +114,13 @@
             },
             logOut() {
                 //退出：
-                axios.post('/users/logout').then(res => {
+                axios.post('/users/logout','',{
+                    //CORS策略已阻止从源“http://localhost:3000/users/login”访问XMLHttpRequest:http://localhost:8080”：
+                    // 对飞行前请求的响应未通过访问控制检查：当请求的凭据模式为“include”时，
+                    // 响应中的“Access-control-Allow-origin”头的值不得为通配符“*”。
+                    // XMLHttpRequest启动的请求的凭据模式由withCredentials属性控制。
+                    withCredentials: true
+                }).then(res => {
                     let result = res.data;
                     console.error(JSON.stringify(result))
                     if (result.status == 0) {
