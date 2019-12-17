@@ -260,3 +260,12 @@ mall
     3.前端页面分页排序：
         1.分页插件：vue-infinite-scroll,具体使用api可以去npm查询
             cnpm i vue-infinite-scroll --save
+    4.商品价格过滤功能
+    5.加入购物车
+    
+ #### 2.10 登录模块实现：
+    
+    1.
+    2.
+    3.
+    

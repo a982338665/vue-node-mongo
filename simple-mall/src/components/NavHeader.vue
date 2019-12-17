@@ -19,13 +19,14 @@
       </div>
       <div class="navbar-right-container" style="float: right">
         <div class="navbar-menu-container">
-          <!--<a href="/" class="navbar-link">我的账户</a>-->
-<!--          <span class="navbar-link"></span>-->
-          <a href="javascript:void(0)" class="navbar-link">Login</a>
-<!--          <a href="javascript:void(0)" class="navbar-link">Logout</a>-->
+<!--          <a href="/" class="navbar-link">我的账户</a>-->
+          <span class="navbar-link" v-text="nickName" v-if="nickName"></span>
+          <!--   点击登录时，展示模态框       -->
+          <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true;errorTip=false" v-if="!nickName">Login</a>
+          <a href="javascript:void(0)" class="navbar-link" @click="logOut" v-else>Logout</a>
           <!--          <div class="navbar-cart-container">-->
           <!--            <span class="navbar-cart-count"></span>-->
-          <a class=" navbar-cart-link" href="/#/cart" >
+          <a class=" navbar-cart-link" href="/#/cart">
             <svg class="navbar-cart-logo">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
             </svg>
@@ -34,10 +35,82 @@
         </div>
       </div>
     </div>
+    <div class="md-modal modal-msg md-modal-transition " v-bind:class="{'md-show':loginModalFlag}">
+      <div class="md-modal-inner">
+        <div class="md-top">
+          <div class="md-title">Login in</div>
+          <button class="md-close" @click="loginModalFlag=false">Close</button>
+        </div>
+        <div class="md-content">
+          <div class="confirm-tips">
+            <div class="error-wrap">
+              <span class="error error-show" v-show="errorTip">用户名或者密码错误</span>
+            </div>
+            <ul>
+              <li class="regi_form_input">
+                <i class="icon IconPeople"></i>
+                <!--        使用v-model实现数据双向绑定        -->
+                <input type="text" tabindex="1" name="loginname" v-model="userName"
+                       class="regi_login_input regi_login_input_left" placeholder="User Name" data-type="loginname">
+              </li>
+              <li class="regi_form_input noMargin">
+                <i class="icon IconPwd"></i>
+                <input type="password" tabindex="2" name="password" v-model="userPwd"
+                       class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="Password"
+                       @keyup.enter="login">
+              </li>
+            </ul>
+          </div>
+          <div class="login-wrap">
+            <a href="javascript:;" class="btn-login" @click="login">登 录</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--  点击遮罩时，关闭模态框  -->
+    <div class="md-overlay" v-if="loginModalFlag" @click="loginModalFlag=false"></div>
   </header>
 </template>
 
 <script>
+    import '../assets/css/login.css'
+    import axios from 'axios'
+
+    export default {
+        data() {
+            return {
+                userName: '',
+                userPwd: '',
+                errorTip: false,
+                loginModalFlag: false,
+                nickName: ''
+            };
+        },
+        methods: {
+            login() {
+                axios.post('/users/login', {
+                    userName: this.userName,
+                    userPwd: this.userPwd
+                }).then(res => {
+                    let obj = res.data;
+                    console.error(JSON.stringify(obj))
+                    if (obj.status == 0) {
+                        this.errorTip = false;
+                        //登陆成功后关掉模态框
+                        this.loginModalFlag = false;
+                        //other
+                        this.nickName = obj.result.userName
+                    } else {
+                        this.errorTip = true;
+                    }
+                })
+            },
+            logOut() {
+
+            }
+        }
+    }
 </script>
 
 <style>
@@ -60,23 +133,27 @@
     justify-content: space-between;
     /*align-items: center;*/
   }
-  .navbar-right-container{
+
+  .navbar-right-container {
     display: flex;
     justify-content: space-between;
   }
-  .navbar-link{
+
+  .navbar-link {
     float: left;
-    width: 20px;
+    width: 50px;
     height: 50px;
     text-align: center;
     line-height: 65px;
   }
-  .navbar-cart-link{
+
+  .navbar-cart-link {
     float: right;
     width: 80px;
     padding: 20px 0 60px 0;
     height: 50px;
   }
+
   /*.navbar-cart-logo {*/
   /*  !*width: 200px;*!*/
   /*  !*height: 100%;*!*/
