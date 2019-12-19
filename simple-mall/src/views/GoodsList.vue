@@ -65,13 +65,26 @@
         </div>
       </div>
     </div>
-    <!--  自定义事件，关闭模态框  -->
+    <!--  自定义事件，关闭模态框 ，当用户未登录时，提醒登录弹出 -->
     <modal v-bind:mdShow="mdShow" v-on:close="closeModal">
       <p slot="message">
         请先登录，否则无法加入到购物车中！
       </p>
       <div slot="btnGroup">
-        <a class="btn btn--m">关闭</a>
+        <a class="btn btn--m" @click="mdShow = false">关闭</a>
+      </div>
+    </modal>
+    <!--  自定义事件，打开模态框 ，当用户登录后，成功加入购物车弹出 -->
+    <modal v-bind:mdShow="mdShowCart" v-on:close="closeModal">
+      <p slot="message">
+        <svg class="icon-status-ok">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
+        </svg>
+        <span>加入购物车成功！</span>
+      </p>
+      <div slot="btnGroup">
+        <a class="btn btn--m" @click="mdShowCart = false">继续购物</a>
+        <router-link class="btn btn--m" href="javascript:;" to="/cart">查看购物车</router-link>
       </div>
     </modal>
     <!--    <div class='md-overlay ' v-show="overLayFlag" @click="closePop"></div>-->
@@ -100,6 +113,7 @@
                 priceChecked: 'all',
                 busy: false,
                 mdShow: false,
+                mdShowCart: false,
                 priceFilter: [
                     {
                         startPrice: '0.00',
@@ -211,7 +225,8 @@
                     withCredentials: true
                 }).then(res => {
                     if (res.data.status == 0) {
-                        alert('加入成功')
+                        // alert('加入成功')
+                        this.mdShowCart = true;
                     } else {
                         this.mdShow = true;
                         // console.error(JSON.stringify(res))
@@ -220,9 +235,11 @@
                     }
                 })
             },
+            //mdShowCart
+            //此方法执行在子组件中的右上角那个 ×
             closeModal(){
                 this.mdShow = false
-
+                this.mdShowCart = false
             },
             getMockData() {
                 return {
