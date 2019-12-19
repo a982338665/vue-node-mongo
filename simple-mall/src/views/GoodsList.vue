@@ -65,7 +65,8 @@
         </div>
       </div>
     </div>
-    <modal v-bind:mdShow="mdShow">
+    <!--  自定义事件，关闭模态框  -->
+    <modal v-bind:mdShow="mdShow" v-on:close="closeModal">
       <p slot="message">
         请先登录，否则无法加入到购物车中！
       </p>
@@ -218,6 +219,10 @@
 
                     }
                 })
+            },
+            closeModal(){
+                this.mdShow = false
+
             },
             getMockData() {
                 return {
