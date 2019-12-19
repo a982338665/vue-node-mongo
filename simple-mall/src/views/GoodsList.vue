@@ -14,7 +14,7 @@
           <a href="javascript:void(0)" class="default cur">Default</a>
           <a href="javascript:void(0)" class="price" @click="sortGoods">Price
             <svg class="icon icon-arrow-short">
-              <use xlink:href="#icon-arrow-short"></use>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-short"></use>
             </svg>
           </a>
           <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
@@ -65,7 +65,15 @@
         </div>
       </div>
     </div>
-    <div class='md-overlay ' v-show="overLayFlag" @click="closePop"></div>
+    <modal v-bind:mdShow="mdShow">
+      <p slot="message">
+        请先登录，否则无法加入到购物车中！
+      </p>
+      <div slot="btnGroup">
+        <a class="btn btn--m">关闭</a>
+      </div>
+    </modal>
+    <!--    <div class='md-overlay ' v-show="overLayFlag" @click="closePop"></div>-->
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -78,6 +86,7 @@
     import NavHeader from '../components/NavHeader'
     import NavFooter from '../components/NavFooter'
     import NavBread from '../components/NavBread'
+    import Modal from '../components/Modal'
     import axios from 'axios'
 
     axios.defaults.baseURL = 'http://localhost:3000';
@@ -89,6 +98,7 @@
                 goodsList: [],
                 priceChecked: 'all',
                 busy: false,
+                mdShow: false,
                 priceFilter: [
                     {
                         startPrice: '0.00',
@@ -115,7 +125,8 @@
         components: {
             NavHeader,
             NavFooter,
-            NavBread
+            NavBread,
+            Modal
         },
         //初始化方法
         mounted: function () {
@@ -195,14 +206,15 @@
                 let productId = item.productId
                 axios.post('/goods/addCart', {
                     productId: productId
-                },{
+                }, {
                     withCredentials: true
                 }).then(res => {
                     if (res.data.status == 0) {
                         alert('加入成功')
                     } else {
-                        console.error(JSON.stringify(res))
-                        alert('加入失败:' + res.data.msg)
+                        this.mdShow = true;
+                        // console.error(JSON.stringify(res))
+                        // alert('加入失败:' + res.data.msg)
 
                     }
                 })
