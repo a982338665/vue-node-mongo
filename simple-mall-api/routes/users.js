@@ -23,6 +23,86 @@ router.post('/logout', function (req, res, next) {
 });
 
 /**
+ * 查询当前用户的购物车数据
+ */
+router.get("/cartList", function (req,res,next) {
+    let userId = req.cookies.userId;
+    userSchema.findOne({userId:userId}, function (err,doc) {
+        if(err){
+            res.json({
+                status:'1',
+                msg:err.message,
+                result:''
+            });
+        }else{
+            if(doc){
+                res.json({
+                    status:'0',
+                    msg:'',
+                    result:doc.cartList
+                });
+            }
+        }
+    });
+});
+
+//购物车删除
+router.post("/cartDel", function (req,res,next) {
+    let userId = req.cookies.userId,productId = req.body.productId;
+    userSchema.update({
+        userId:userId
+    },{
+        $pull:{
+            'cartList':{
+                'productId':productId
+            }
+        }
+    }, function (err,doc) {
+        if(err){
+            res.json({
+                status:'1',
+                msg:err.message,
+                result:''
+            });
+        }else{
+            res.json({
+                status:'0',
+                msg:'',
+                result:'suc'
+            });
+        }
+    });
+});
+
+
+//修改商品数量
+router.post("/cartEdit", function (req,res,next) {
+    let userId = req.cookies.userId,
+        productId = req.body.productId,
+        productNum = req.body.productNum,
+        checked = req.body.checked;
+    userSchema.update({"userId":userId,"cartList.productId":productId},{
+        "cartList.$.productNum":productNum,
+        "cartList.$.checked":checked,
+    }, function (err,doc) {
+        if(err){
+            res.json({
+                status:'1',
+                msg:err.message,
+                result:''
+            });
+        }else{
+            res.json({
+                status:'0',
+                msg:'',
+                result:'suc'
+            });
+        }
+    })
+});
+
+
+/**
  * 登录校验
  */
 router.post('/checkLogin', function (req, res, next) {

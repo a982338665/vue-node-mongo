@@ -31,7 +31,7 @@
           <a href="javascript:void(0)" class="navbar-link" @click="logOut" v-else>Logout</a>
           <!--          <div class="navbar-cart-container">-->
           <!--            <span class="navbar-cart-count"></span>-->
-          <a class=" navbar-cart-link" href="/#/cart">
+          <a class=" navbar-cart-link" href="/cart">
             <svg class="navbar-cart-logo">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
             </svg>
